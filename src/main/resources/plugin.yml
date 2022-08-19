@@ -1,0 +1,28 @@
+name: PortalRestrictions
+version: '${project.version}'
+main: krisapps.portalrestrictions.portalrestrictions.PortalRestrictions
+api-version: 1.15
+authors: [ _TheTechGuy_ ]
+description: Ever wanted to restrict the usage of portals on your server? Well - the time has come.
+
+commands:
+  setrestriction:
+    usage: "/setrestriction <restrictionTarget> <restrictionType> <restrictionDuration (days)> <restrictionContext>"
+    description: "Sets a portal restriction."
+  viewrestriction:
+    usage: "/viewrestriction <restrictionTarget>"
+    description: "Shows info about the restriction for the specified target if any exist."
+  removerestriction:
+    usage: "/removerestriction <restrictionTarget>"
+    description: "Removes the restriction set for the target."
+
+permissions:
+  portalrestrictions.admin:
+    description: "Admin access to all commands."
+    default: op
+    children:
+      portalrestrictions.standard: true
+
+  portalrestrictions.standard:
+    description: "Simple access to plugin commands."
+    default: not op

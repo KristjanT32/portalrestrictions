@@ -1,0 +1,5 @@
+#Configuration file for ${project.name} ${project.version}
+
+config:
+  #Announce restriction resets globally?
+  announceReset: false

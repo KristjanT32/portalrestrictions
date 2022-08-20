@@ -8,23 +8,25 @@ import org.bukkit.ChatColor;
 import java.io.IOException;
 import java.util.Date;
 
-public class CheckDates implements Runnable {
+public class RestrictionValidator implements Runnable {
 
     Date current_date;
 
     PortalRestrictions main;
 
-    public CheckDates(PortalRestrictions main) {
+    public RestrictionValidator(PortalRestrictions main) {
         this.main = main;
     }
 
     @Override
     public void run() {
 
-        main.getLogger().info("[ValidityChecker] Checking restrictions...");
+        if (main.config.getBoolean("config.logValidator")) {
+            main.getLogger().info("[ValidityChecker] Checking restrictions...");
+        }
         current_date = new Date();
 
-        if (main.restrictiondata.getConfigurationSection("restrictions") == null) {
+        if (main.restrictiondata.getConfigurationSection("restrictions") == null || main.restrictiondata.getConfigurationSection("restrictions").getKeys(false).size() == 0) {
             return;
         }
 
@@ -35,7 +37,9 @@ public class CheckDates implements Runnable {
 
             if (current_date.after(date)){
                 if (current_date.getDay() - date.getDay() >= duration){
-                    main.getLogger().info("Restriction " + restriction + " is no longer valid, removing...");
+                    if (main.config.getBoolean("config.logValidator")) {
+                        main.getLogger().info("Restriction " + restriction + " is no longer valid, removing...");
+                    }
                     if (main.config.getBoolean("config.announceReset")){
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', LocalizationManager.RESTRICTION_REMOVED_SCHEDULE.getString()).replace("%target%", restriction).replace("%type%", main.restrictiondata.getString("restrictions." + restriction + ".type")));
                     }
@@ -44,7 +48,7 @@ public class CheckDates implements Runnable {
                     try {
                         main.restrictiondata.save(main.dataFile);
                     } catch (IOException e) {
-                        main.getLogger().info("Error removing restriction.");
+                        main.getLogger().info("Error removing restriction [" + restriction + "]");
                         e.printStackTrace();
                     }
                 }
@@ -53,6 +57,8 @@ public class CheckDates implements Runnable {
             }
 
         }
-        main.getLogger().info("[ValidityChecker] Checking complete.");
+        if (main.config.getBoolean("config.logValidator")) {
+            main.getLogger().info("[ValidityChecker] Checking complete.");
+        }
     }
 }

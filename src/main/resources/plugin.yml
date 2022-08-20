@@ -9,12 +9,19 @@ commands:
   setrestriction:
     usage: "/setrestriction <restrictionTarget> <restrictionType> <restrictionDuration (days)> <restrictionContext>"
     description: "Sets a portal restriction."
+    permission: portalrestrictions.admin
   viewrestriction:
     usage: "/viewrestriction <restrictionTarget>"
     description: "Shows info about the restriction for the specified target if any exist."
+    permission: portalrestrictions.standard
   removerestriction:
     usage: "/removerestriction <restrictionTarget>"
     description: "Removes the restriction set for the target."
+    permission: portalrestrictions.admin
+  validaterestrictions:
+    usage: "/validaterestrictions"
+    description: "Validates all of the active restrictions."
+    permission: portalrestrictions.admin
 
 permissions:
   portalrestrictions.admin:

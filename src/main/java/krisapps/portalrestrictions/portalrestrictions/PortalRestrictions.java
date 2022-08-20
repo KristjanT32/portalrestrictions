@@ -3,7 +3,8 @@ package krisapps.portalrestrictions.portalrestrictions;
 import krisapps.portalrestrictions.portalrestrictions.commands.RemoveRestriction;
 import krisapps.portalrestrictions.portalrestrictions.commands.SetRestriction;
 import krisapps.portalrestrictions.portalrestrictions.commands.ViewRestriction;
-import krisapps.portalrestrictions.portalrestrictions.datefollowing.CheckDates;
+import krisapps.portalrestrictions.portalrestrictions.datefollowing.RestrictionValidator;
+import krisapps.portalrestrictions.portalrestrictions.datefollowing.ValidateRestrictions;
 import krisapps.portalrestrictions.portalrestrictions.events.OnPortalCreateAttemptHandler;
 import krisapps.portalrestrictions.portalrestrictions.events.OnPortalEnterAttemptHandler;
 import krisapps.portalrestrictions.portalrestrictions.tabcompletion.RemoveRestrictionTab;
@@ -12,7 +13,6 @@ import krisapps.portalrestrictions.portalrestrictions.tabcompletion.ViewRestrict
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -40,6 +40,7 @@ public final class PortalRestrictions extends JavaPlugin {
         getCommand("setrestriction").setExecutor(new SetRestriction(this));
         getCommand("viewrestriction").setExecutor(new ViewRestriction(this));
         getCommand("removerestriction").setExecutor(new RemoveRestriction(this));
+        getCommand("validaterestrictions").setExecutor(new ValidateRestrictions(this));
 
 
         //Tab Completion
@@ -53,7 +54,7 @@ public final class PortalRestrictions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnPortalEnterAttemptHandler(this), this);
         getServer().getPluginManager().registerEvents(new OnPortalCreateAttemptHandler(this), this);
 
-        getServer().getScheduler().scheduleAsyncRepeatingTask(this, new CheckDates(this), 40, 20 * 30);
+        getServer().getScheduler().scheduleAsyncRepeatingTask(this, new RestrictionValidator(this), 40, 20 * 30);
 
     }
 

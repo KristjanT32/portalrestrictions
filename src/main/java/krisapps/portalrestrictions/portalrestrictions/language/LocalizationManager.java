@@ -22,6 +22,12 @@ public enum LocalizationManager {
 
     RESTRICTION_REMOVED_SCHEDULE("&e[&bRestrictionManager&e] Restriction of type &b%target%&e &d(&b%type%&d)&e is no longer active."),
 
+    VALIDATING_START("&e[&bRestrictionManager&e] &aValidating &b%num%&e effective restriction(s) [...]"),
+    VALIDATING_NO_VALID_RESTRICTIONS("&e[&bRestrictionManager&e] &cValidating failed: &bno restrictions are active. &c[!!]"),
+    VALIDATING_INVALID_RESTRICTION("&e[&bRestrictionManager&e] &cInvalid restriction found: &b%type% &efor &b%target% &e(no longer effective) &c[!]"),
+    VALIDATING_RESTRICTION_REMOVED("&e[&bRestrictionManager&e] &aInvalid restriction removed &e[/]"),
+    VALIDATING_DONE("&e[&bRestrictionManager&e] &aValidation complete! &e[/]"),
+
     //Errors
     SAVE_ERROR("&e[&bRestrictionManager&e] &cAn error has occurred while saving the data."),
     INVALID_SYNTAX("&cInvalid syntax."),

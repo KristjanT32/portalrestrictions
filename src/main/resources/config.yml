@@ -3,3 +3,6 @@
 config:
   #Announce restriction resets globally?
   announceReset: false
+
+  #Log restriction validator info?
+  logValidator: false
